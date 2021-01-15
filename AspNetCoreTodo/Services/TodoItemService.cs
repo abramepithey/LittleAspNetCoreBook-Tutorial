@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreTodo.Controllers;
 using AspNetCoreTodo.Data;
 using AspNetCoreTodo.Models;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,7 @@ namespace AspNetCoreTodo.Services
             return saveResult == 1;
         }
 
-        public async Task<TodoItem[]> GetIncompleteItemsAsync()
+        public async Task<TodoItem[]> GetIncompleteItemsAsync(ApplicationUser user)
         {
             return await _context.Items
                 .Where(x => x.IsDone == false)

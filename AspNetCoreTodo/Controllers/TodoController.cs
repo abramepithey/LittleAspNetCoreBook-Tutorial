@@ -24,7 +24,11 @@ namespace AspNetCoreTodo.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var items = await _todoItemService.GetIncompleteItemsAsync();
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+                return Challenge();
+
+            var items = await _todoItemService.GetIncompleteItemsAsync(currentUser);
 
             var model = new TodoViewModel()
             {
