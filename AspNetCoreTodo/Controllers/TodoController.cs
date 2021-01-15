@@ -6,6 +6,7 @@ using AspNetCoreTodo.Models;
 using AspNetCoreTodo.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace AspNetCoreTodo.Controllers
 {
@@ -13,10 +14,12 @@ namespace AspNetCoreTodo.Controllers
     public class TodoController : Controller
     {
         private readonly ITodoItemService _todoItemService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TodoController(ITodoItemService todoItemService)
+        public TodoController(ITodoItemService todoItemService, UserManager<ApplicationUser> userManager)
         {
             _todoItemService = todoItemService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
