@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace AspNetCoreTodo.Controllers
+namespace AspNetCoreTodo
 {
     public class ApplicationUser : IdentityUser
     {

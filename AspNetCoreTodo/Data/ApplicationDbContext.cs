@@ -14,6 +14,11 @@ namespace AspNetCoreTodo.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
         public DbSet<TodoItem> Items { get; set; }
     }
 }
