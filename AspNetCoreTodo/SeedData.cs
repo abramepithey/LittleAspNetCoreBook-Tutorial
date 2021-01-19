@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AspNetCoreTodo.Models;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +27,26 @@ namespace AspNetCoreTodo
                 return;
             
             await roleManager.CreateAsync(new IdentityRole(Constants.AdministratorRole));
+        }
+
+        private static async Task EnsureTestAdminAsync(UserManager<ApplicationUser> userManager)
+        {
+            var testAdmin = await userManager
+                .Users
+                .Where(x => x.UserName == "admin@todo.local")
+                .SingleOrDefaultAsync();
+
+            if (testAdmin != null)
+                return;
+
+            testAdmin = new ApplicationUser
+            {
+                UserName = "admin@todo.local",
+                Email = "admin@todo.local"
+            };
+
+            await userManager.CreateAsync(testAdmin, "NotSecure123!!");
+            await userManager.AddToRoleAsync(testAdmin, Constants.AdministratorRole);
         }
     }
 }
